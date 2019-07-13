@@ -1,0 +1,4 @@
+{
+  "mongoURI": "mongodb+srv://praveen123:praveen123@mern-d5kl2.mongodb.net/test?retryWrites=true&w=majority",
+  "jwtKey": "Defaultjsonwebtoken246"
+}
