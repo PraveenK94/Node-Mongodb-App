@@ -5,13 +5,43 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const config = require('config');
 const { check, validationResult } = require('express-validator');
-
+const passport = require('passport');
 const User = require('../../models/User');
+
 
 
 //@route GET api/auth
 //@desc TEST route
 //@access Public
+
+
+//auth login 
+router.get('/login', (req, res) => {
+    res.render('login', { user: req.user });
+});
+
+//auth logout 
+router.get('/logout', (req, res) => {
+    req.logOut();
+    res.redirect('/');
+});
+
+
+
+
+//auth with google
+router.get('/google', passport.authenticate('google', {
+    scope: ['profile', 'email']
+}));
+
+//callback route for google to redirect to  
+
+router.get('/google/redirect', passport.authenticate('google'),
+    (req, res) => {
+        res.redirect('/profile');
+    });
+
+
 
 
 router.get('/', auth, async (req, res) => {
@@ -26,7 +56,7 @@ router.get('/', auth, async (req, res) => {
 
 
 //@route Post api/auth
-//@desc Authenticate user & get token 
+//@description  Authenticate user & get token 
 //@access Public
 
 
